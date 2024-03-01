@@ -14,14 +14,13 @@ const orderRoutes = require(`./routes/order.js`);
 
 // [SECTION] Server Setup
 const app = express();
-const PORT = 4002;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // [SECTION] Mongo DB Database Connection: ecommerce-API
-mongoose.connect(process.env.mongoDB || "mongodb+srv://jrcabero22:admin@cluster0.mjgqsfi.mongodb.net/ecommerce-API?retryWrites=true&w=majority");
+mongoose.connect(process.env.mongoDB);
 
 mongoose.connection.once(`open`, () => console.log(`Now connected to Mongo DB Atlas.`));
 
@@ -33,7 +32,7 @@ app.use(`/b2/orders`, orderRoutes);
 
 // [SECTION] Server Gateway Response
 if(require.main === module){
-	app.listen(PORT, () => console.log(`API is now online on port ${PORT}`));
+	app.listen(process.env.PORT, () => console.log(`API is now online on port ${process.env.PORT}`));
 }
 
 module.exports = { app, mongoose };
