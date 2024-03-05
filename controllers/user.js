@@ -163,6 +163,16 @@ module.exports.retrieveAllUsers = (req, res) => {
 	return User.find({})
 	.then(users => {
 		if(users.length > 0){
+			users = users.map(user => {
+				return {
+					_id: user._id,
+					firstName: user.firstName,
+					lastName: user.lastName,
+					email: user.email,
+					isAdmin: user.isAdmin,
+					mobileNo: user.mobileNo
+				}
+			})
 			return res.status(200).send({ users });
 		} else {
 			return res.status(200).send({ message: `No users found` });
