@@ -157,6 +157,23 @@ module.exports.retrieveUserDetails = (req, res) => {
     });
 };
 
+// [SECTION] Retrieve All Users
+module.exports.retrieveAllUsers = (req, res) => {
+
+	return User.find({})
+	.then(users => {
+		if(users.length > 0){
+			return res.status(200).send({ users });
+		} else {
+			return res.status(200).send({ message: `No users found` });
+		}
+	})
+	.catch(err => {
+		console.error(`Error in finding all users: `, err);
+		return res.status(500).send({ error: `Error finding users` });
+	});
+}
+
 
 // [SECTION] UPDATE USER AS ADMIN
 module.exports.updateUserAsAdmin = (req, res) => {
